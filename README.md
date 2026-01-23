@@ -2,6 +2,10 @@
 ```
 Memebers: Will Sarmiento, David Hochberg, Jayden Elishaw, Arteen Ramezani, Khoa Vo
 ```
+NOTE: Some issues with slash commands on discord app, so a possible fix is the use of testing in the web browser for [discord](https://discord.com/)!
+
+
+
 ## This is the current state of the project
 Memebers need to fork this project and then clone this Repo to start!
 ### Brainstorming:
@@ -19,12 +23,12 @@ We have chosen the:
 ```
 Music trivia bot!
 ```
-Now We are in the part of finding our requirements!
+Now We are in the part of finding our requirements and functions!
 
 Requirements:
 
 1. Trivia of selected genres of music
-2. 
+
 
 
 
