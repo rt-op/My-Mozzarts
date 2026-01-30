@@ -38,19 +38,7 @@ Requirements:
 2. Points
 3. Leaderboard
 
-> [!NOTE]
->
-> # RELEASE NOTES (Version .09):
 
-### Added:
-
-```
-- Explanation of the rules
-- A way to check your score
-- Selection of genres trivia topics
-- A way to choose difficulty
-- [To be continued, need to add last feature  for 1.0 release]
-```
 > # Version 1.0
 ### Arteen Ramezani - Release Notes:
 
@@ -96,5 +84,12 @@ npm i -D @discordjs/rest discord-api-types
   1) build
   2) `node -r dotenv/config build/app.js`
 ---
+
+> # Version 1.0.3
+> ### Will Sarmiento - Release Notes
+### Added:
+```
+- Explanation of the rules
+```
 
 
