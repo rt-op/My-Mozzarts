@@ -51,6 +51,6 @@ Figure 1.5 shows the connections between all external systems and how they inter
 
 <ins> **Figure 1.5** </ins>
 
-<img alt="Mozzarts-Class_Architecture-ArteenR" src="[https://github.com/user-attachments/assets/244c5fd5-9cfe-40a6-b392-d6104d1a040e](https://github.com/CSS360-2026-Winter/Mozzarts/blob/6d8f6a790cb0924ae4682283e196db67f024e092/images/jayden-system-context-diagram.png)" />
+<img alt="jayden-system-context-diagram" src="images/jayden-system-context-diagram.png" />
 
 
