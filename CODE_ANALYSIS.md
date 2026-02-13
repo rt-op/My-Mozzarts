@@ -34,7 +34,7 @@ What is in the middle (could be improved, but not the worst):
 
 - **Getting songs from iTunes API**: We currently have two methods for this in two places: getRandomItunesTrack in trivia.js and getRandomItunesPreview in game.js. Could be put into its own cohesive object, which would also remove the repetition.
 
-### **Technical Debt & Code Smells** (Will Sarmiento)
+## **Technical Debt & Code Smells** (Will Sarmiento)
 
 For this task, I investigated our bots technical debt and code smells to use to develop high priority issues to solve to create a better infrastructure and maintainability for the bot.
 
