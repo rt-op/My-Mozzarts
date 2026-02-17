@@ -26,7 +26,7 @@ import http from "node:http";
 import zlib from "node:zlib";
 
 import { getGenre, getSession, setSession, clearSession } from "../gameState.js";
-import { resetScores, addPoints, getGuildScoresSorted } from "../scoreStore.js";
+import {  getGuildScoresSorted } from "../helpers/scoreStore.js";
 import { makeHint } from "../helpers/hintHelper.js";
 
 const VOICE_CHANNEL_NAME = "Game";
@@ -233,7 +233,7 @@ async function ensureVoice(guild, vc) {
   await entersState(connection, VoiceConnectionStatus.Ready, 30000);
 
   const player = createAudioPlayer({
-    behaviors: { noSubscriber: NoSubscriberBehavior.Pause },
+    behaviors: { noSubscriber: NoSubscriberBehavior.Play },
   });
 
   connection.subscribe(player);
@@ -283,6 +283,11 @@ function isCorrectGuess(msgContent, track, difficulty) {
   if (difficulty === "medium") return titleHit;
   return titleHit && artistHit;
 }
+
+export const _test = {
+  normalize,
+  pointsFor,
+};
 
 export default {
   data: new SlashCommandBuilder()
@@ -429,6 +434,7 @@ export default {
         updated.hintStage = 0;
         updated.hintsUsed = 0;
         updated.maxHints = maxHintsFor(difficulty);
+        updated.tmpFile = tmp;
         setSession(guild.id, updated);
 
         const listenEmbed = new EmbedBuilder()
@@ -444,7 +450,7 @@ export default {
 
         // flowchart: User listens to song for 30 seconds
         await playPreview(player, tmp);
-        await safeUnlink(tmp);
+       
 
         // Guess phase + hint controls
         const hintRow = new ActionRowBuilder().addComponents(
@@ -453,6 +459,10 @@ export default {
             .setLabel("Hint")
             .setStyle(ButtonStyle.Secondary)
             .setDisabled(updated.maxHints <= 0),
+          new ButtonBuilder()
+            .setCustomId("trivia_replay")
+            .setLabel("Replay")
+            .setStyle(ButtonStyle.Primary),
           new ButtonBuilder()
             .setCustomId("trivia_skip")
             .setLabel("Skip")
@@ -479,6 +489,34 @@ export default {
         let skipped = false;
 
         componentCollector.on("collect", async (i) => {
+         if (i.customId === "trivia_replay") {
+            const ss = getSession(guild.id);
+            if (!ss?.active || !ss.tmpFile) {
+              await i.reply({ content: "Replay unavailable.", ephemeral: true });
+              return;
+            }
+            await i.deferUpdate();
+            (async () => {
+              try {
+                try { player.stop(true); } catch {}
+                const resource = createAudioResource(ss.tmpFile, {
+                  inputType: StreamType.Arbitrary,
+                });
+                player.play(resource);
+                const stopper = setTimeout(() => {
+                  try { player.stop(true); } catch {}
+                }, 32000);
+                await new Promise((resolve) =>
+                  player.once(AudioPlayerStatus.Idle, resolve)
+                );
+                clearTimeout(stopper);
+              } catch (err) {
+                console.error("Replay failed:", err);
+              }
+            })();
+            return;
+          }
+           
           if (i.customId === "trivia_skip") {
             skipped = true;
             await i.deferUpdate();
@@ -553,8 +591,9 @@ export default {
         // flowchart: Correct? -> Points displayed / Incorrect message
         if (winner.correct && winner.userId) {
           const pts = pointsFor(difficulty, ss?.hintsUsed ?? 0);
+          // TODO: This does not function 
           addPoints(guild.id, winner.userId, pts);
-
+          // No such method
           const top = getGuildScoresSorted(guild.id).slice(0, 5);
           const topLines = top.map(([uid, p], idx) => `${idx + 1}. <@${uid}> — **${p}**`).join("\n");
 
@@ -564,6 +603,15 @@ export default {
         } else {
           await tc.send(`❌ Time! No correct guesses.\n${answerLine}`);
         }
+
+        try {
+          const ss = getSession(guild.id);
+          if (ss?.tmpFile) {
+            await safeUnlink(ss.tmpFile);
+            ss.tmpFile = null;
+            setSession(guild.id, ss);
+          }
+        } catch {}
 
         await sleep(1200);
         try { await listenMsg.delete().catch(() => {}); } catch {}
@@ -588,4 +636,6 @@ export default {
       clearSession(guild.id);
     }
   },
+
+  
 };
