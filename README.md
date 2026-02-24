@@ -106,9 +106,9 @@ npm i -D @discordjs/rest discord-api-types
 - Added a score tracker and a command to see the current score
 ```
 
-> # Version 1.0.6
+> # Version 2.0.0
 > ### Maintenance update
-### Changes:
+### ArteenR Changes:
 ```
 - Enforced 15‑second answer window after each preview; unanswered rounds end
   automatically.
@@ -124,6 +124,7 @@ npm i -D @discordjs/rest discord-api-types
 - Ensured a round only moves on after the previous round is over
 - Cleaned up Gameplay loop
 ```
+
 
 
 
