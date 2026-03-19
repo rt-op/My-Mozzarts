@@ -187,6 +187,7 @@ Kieran Moynihan Changes:
 
 ## Arteen Ramezani
  Changes in this version code architecture by @rt-op in https://github.com/CSS360-2026-Winter/Mozzarts/issues/54:
+ 
     - Broke down the 600+ line execute function into 18 smaller, focused functions
     - Added comprehensive JSDoc documentation for all functions with parameter types and descriptions
     - Improved code readability with detailed inline comments explaining game flow phases
