@@ -197,5 +197,5 @@ Kieran Moynihan Changes:
     - Created missing powerup command that was referenced in tests
     - Modularized game phases: difficulty selection, channel validation, voice setup, game loop, scoring, cleanup
     - Better separation of concerns between UI, game logic, and data management
-
+    - Found some bugs while testing, fixed within https://github.com/CSS360-2026-Winter/Mozzarts/pull/132
 
