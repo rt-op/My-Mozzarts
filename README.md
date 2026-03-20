@@ -198,4 +198,15 @@ Kieran Moynihan Changes:
     - Modularized game phases: difficulty selection, channel validation, voice setup, game loop, scoring, cleanup
     - Better separation of concerns between UI, game logic, and data management
     - Found some bugs while testing, fixed within https://github.com/CSS360-2026-Winter/Mozzarts/pull/132
+    
+## Jayden Elishaw
+This release focuses on improving code quality, maintainability, and reliability of core game controls. High-complexity methods were refactored into smaller, testable units, and session interruption logic was centralized to eliminate duplication and bugs. Additionally, the /terminate command now executes instantly and is available to all players for better gameplay flow.
+
+#### Key Updates
+
+- Refactored complex methods into modular helpers (#48)
+- Centralized session interruption and cleanup logic
+- Improved unit testability and execution path coverage
+- /terminate now works instantly and is usable by all players (#85)
+
 
