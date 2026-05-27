@@ -8,7 +8,7 @@ NOTE: Some issues with slash commands on discord app, so a possible fix is the u
 
 ## This is the current state of the project
 
-Memebers need to fork this project and then clone this Repo to start!
+Members need to fork this project and then clone this Repo to start!
 
 ### Brainstorming:
 
